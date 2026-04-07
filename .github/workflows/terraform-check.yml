@@ -1,0 +1,37 @@
+name: Terraform Syntax Check
+
+on:
+  push:
+    paths:
+      - "terraform/**"
+  pull_request:
+    paths:
+      - "terraform/**"
+
+jobs:
+  validate:
+    name: fmt & validate (${{ matrix.module }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        module: [proxmox, kubernetes]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~1.5"
+
+      - name: terraform fmt
+        run: terraform fmt -check -recursive
+        working-directory: terraform/${{ matrix.module }}
+
+      - name: terraform init
+        run: terraform init -backend=false
+        working-directory: terraform/${{ matrix.module }}
+
+      - name: terraform validate
+        run: terraform validate
+        working-directory: terraform/${{ matrix.module }}
