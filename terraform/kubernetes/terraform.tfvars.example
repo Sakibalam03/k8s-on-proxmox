@@ -1,0 +1,13 @@
+# Copy to terraform.tfvars and adjust as needed.
+# Run AFTER the cluster is initialized and kubeconfig is in place.
+
+kubeconfig_path    = "~/.kube/config"
+kubeconfig_context = ""  # leave empty to use current context
+
+metallb_version      = "v0.14.9"
+metallb_ip_pool_name = "lab-pool"
+metallb_ip_range     = "10.69.5.240-10.69.5.245"
+
+haproxy_ingress_version = ""  # leave empty for latest chart
+
+deploy_nginx_test = true
