@@ -4,9 +4,9 @@
 
 ## Network Configuration
 
-In our lab setup we are using VLAN **5** with the `10.69.5.0/24` address range.
-The DHCP scope covers `10.69.5.2` - `10.69.5.99`,
-so any addresses from `10.69.5.100` to `10.69.5.254` can be assigned statically.
+In our lab setup we are using VLAN **67** with the `10.69.67.0/24` address range.
+The DHCP scope covers `10.69.67.2` - `10.69.67.99`,
+so any addresses from `10.69.67.100` to `10.69.67.254` can be assigned statically.
 
 ---
 
@@ -54,7 +54,7 @@ qm create 200 \
   --memory 4096 \
   --numa 0 \
   --scsihw virtio-scsi-single \
-  --net0 virtio,bridge=vmbr0,tag=5,firewall=0 \
+  --net0 virtio,bridge=vmbr0,tag=67,firewall=0 \
   --vga qxl,clipboard=vnc,memory=32 \
   --onboot 1 \
   --ide2 local:iso/ubuntu-24.04.3-live-server-amd64.iso,media=cdrom \
@@ -74,7 +74,7 @@ qm create 201 \
   --memory 2048 \
   --numa 0 \
   --scsihw virtio-scsi-single \
-  --net0 virtio,bridge=vmbr0,tag=5,firewall=0 \
+  --net0 virtio,bridge=vmbr0,tag=67,firewall=0 \
   --vga qxl,clipboard=vnc,memory=32 \
   --onboot 1 \
   --ide2 local:iso/ubuntu-24.04.3-live-server-amd64.iso,media=cdrom \
@@ -94,7 +94,7 @@ qm create 202 \
   --memory 2048 \
   --numa 0 \
   --scsihw virtio-scsi-single \
-  --net0 virtio,bridge=vmbr0,tag=5,firewall=0 \
+  --net0 virtio,bridge=vmbr0,tag=67,firewall=0 \
   --vga qxl,clipboard=vnc,memory=32 \
   --onboot 1 \
   --ide2 local:iso/ubuntu-24.04.3-live-server-amd64.iso,media=cdrom \
@@ -117,7 +117,7 @@ qm create 200 \
   --memory 4096 \
   --numa 0 \
   --scsihw virtio-scsi-single \
-  --net0 virtio,bridge=vmbr0,tag=5,firewall=0 \
+  --net0 virtio,bridge=vmbr0,tag=67,firewall=0 \
   --vga qxl,clipboard=vnc,memory=32 \
   --onboot 1 \
   --ide2 local:iso/ubuntu-24.04.3-live-server-amd64.iso,media=cdrom \
@@ -352,7 +352,7 @@ kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/
 Copy the join command generated on the master node and run it on each worker. It requires sudo:
 
 ```bash
-sudo kubeadm join 10.69.5.200:6443 --token vyg76p.pz5k6dkrkaopvjhi --discovery-token-ca-cert-hash sha256:fb914ae294538ea1d35e18fab62df421f936dd68069eb877aa3b8e49634321a3
+sudo kubeadm join 10.69.67.200:6443 --token vyg76p.pz5k6dkrkaopvjhi --discovery-token-ca-cert-hash sha256:fb914ae294538ea1d35e18fab62df421f936dd68069eb877aa3b8e49634321a3
 ```
 
 ### Verify the Cluster
@@ -406,7 +406,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 10.69.5.240-10.69.5.245 # CHANGE THIS to your desired range
+  - 10.69.67.240-10.69.67.245 # CHANGE THIS to your desired range
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
@@ -478,8 +478,8 @@ kubectl get svc nginx-service
 ```
 
 You should see both a cluster IP and an **external IP** assigned by MetalLB.
-Just type that IP address in your browser (like `10.69.5.240` for me) and you should see **'Welcome to nginx'**.
-It's the same as running `http://10.69.5.240:80`.
+Just type that IP address in your browser (like `10.69.67.240` for me) and you should see **'Welcome to nginx'**.
+It's the same as running `http://10.69.67.240:80`.
 
 ---
 
