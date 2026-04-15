@@ -19,7 +19,7 @@ We need to create 3 Linux Virtual Machines on Proxmox:
 
 While any Linux kernel-based system can run Kubernetes, the easiest way to follow this guide is with Ubuntu or another Debian-based OS.
 
-I will go for **Ubuntu 26.04 LTS** — go to [THIS LINK](https://cdimage.ubuntu.com/ubuntu-server/daily-live/current/) to download the image.
+I will go for **Ubuntu 24.04 LTS** — go to [THIS LINK](https://releases.ubuntu.com/24.04/) to download the image.
 
 1. Scroll down to the live server ISO file and click **'copy link address'**
 2. Then click **'query link'** in Proxmox and download
@@ -40,7 +40,7 @@ I will go for **Ubuntu 26.04 LTS** — go to [THIS LINK](https://cdimage.ubuntu.
 
 Note that the Master Node might need a bit more resources than Worker Nodes.
 
-#### With Transcend SSD (external storage)
+#### With rover-storage-main (external storage)
 
 **Master Node (VM 200)**
 ```bash
@@ -48,16 +48,18 @@ qm create 200 \
   --name k8s-master \
   --agent 1 \
   --balloon 0 \
-  --cores 4 \
-  --sockets 1 \
+  --cores 2 \
+  --sockets 2 \
   --cpu host \
   --memory 4096 \
   --numa 0 \
   --scsihw virtio-scsi-single \
   --net0 virtio,bridge=vmbr0,tag=5,firewall=0 \
-  --ide2 local:iso/ubuntu-26.04-live-server-amd64.iso,media=cdrom \
+  --vga qxl,clipboard=vnc,memory=32 \
+  --onboot 1 \
+  --ide2 local:iso/ubuntu-24.04.3-live-server-amd64.iso,media=cdrom \
   --boot "order=scsi0;ide2;net0" \
-  --scsi0 transcend:50,discard=on,iothread=1,ssd=1
+  --scsi0 rover-storage-main:100,discard=on,iothread=1,ssd=1
 ```
 
 **Worker Node 1 (VM 201)**
@@ -67,15 +69,17 @@ qm create 201 \
   --agent 1 \
   --balloon 0 \
   --cores 2 \
-  --sockets 1 \
+  --sockets 2 \
   --cpu host \
   --memory 2048 \
   --numa 0 \
   --scsihw virtio-scsi-single \
   --net0 virtio,bridge=vmbr0,tag=5,firewall=0 \
-  --ide2 local:iso/ubuntu-26.04-live-server-amd64.iso,media=cdrom \
+  --vga qxl,clipboard=vnc,memory=32 \
+  --onboot 1 \
+  --ide2 local:iso/ubuntu-24.04.3-live-server-amd64.iso,media=cdrom \
   --boot "order=scsi0;ide2;net0" \
-  --scsi0 transcend:50,discard=on,iothread=1,ssd=1
+  --scsi0 rover-storage-main:200,discard=on,iothread=1,ssd=1
 ```
 
 **Worker Node 2 (VM 202)**
@@ -85,15 +89,17 @@ qm create 202 \
   --agent 1 \
   --balloon 0 \
   --cores 2 \
-  --sockets 1 \
+  --sockets 2 \
   --cpu host \
   --memory 2048 \
   --numa 0 \
   --scsihw virtio-scsi-single \
   --net0 virtio,bridge=vmbr0,tag=5,firewall=0 \
-  --ide2 local:iso/ubuntu-26.04-live-server-amd64.iso,media=cdrom \
+  --vga qxl,clipboard=vnc,memory=32 \
+  --onboot 1 \
+  --ide2 local:iso/ubuntu-24.04.3-live-server-amd64.iso,media=cdrom \
   --boot "order=scsi0;ide2;net0" \
-  --scsi0 transcend:50,discard=on,iothread=1,ssd=1
+  --scsi0 rover-storage-main:200,discard=on,iothread=1,ssd=1
 ```
 
 #### With Default Proxmox Storage (local-lvm)
@@ -105,16 +111,18 @@ qm create 200 \
   --name k8s-master \
   --agent 1 \
   --balloon 0 \
-  --cores 4 \
-  --sockets 1 \
+  --cores 2 \
+  --sockets 2 \
   --cpu host \
   --memory 4096 \
   --numa 0 \
   --scsihw virtio-scsi-single \
   --net0 virtio,bridge=vmbr0,tag=5,firewall=0 \
-  --ide2 local:iso/ubuntu-26.04-live-server-amd64.iso,media=cdrom \
+  --vga qxl,clipboard=vnc,memory=32 \
+  --onboot 1 \
+  --ide2 local:iso/ubuntu-24.04.3-live-server-amd64.iso,media=cdrom \
   --boot "order=scsi0;ide2;net0" \
-  --scsi0 local-lvm:50,discard=on,iothread=1,ssd=1
+  --scsi0 local-lvm:100,discard=on,iothread=1,ssd=1
 ```
 
 ---
