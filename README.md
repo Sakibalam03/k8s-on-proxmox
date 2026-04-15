@@ -19,7 +19,7 @@ We need to create 3 Linux Virtual Machines on Proxmox:
 
 While any Linux kernel-based system can run Kubernetes, the easiest way to follow this guide is with Ubuntu or another Debian-based OS.
 
-I will go for **Ubuntu 24.04 LTS** — go to [THIS LINK](https://releases.ubuntu.com/24.04/) to download the image.
+I will go for **Ubuntu Server 24.04 LTS** — go to [THIS LINK](https://ubuntu.com/download/server) to download the image.
 
 1. Scroll down to the live server ISO file and click **'copy link address'**
 2. Then click **'query link'** in Proxmox and download
