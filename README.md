@@ -71,7 +71,7 @@ qm create 201 \
   --cores 2 \
   --sockets 2 \
   --cpu host \
-  --memory 2048 \
+  --memory 4096 \
   --numa 0 \
   --scsihw virtio-scsi-single \
   --net0 virtio,bridge=vmbr0,tag=67,firewall=0 \
@@ -91,7 +91,7 @@ qm create 202 \
   --cores 2 \
   --sockets 2 \
   --cpu host \
-  --memory 2048 \
+  --memory 4096 \
   --numa 0 \
   --scsihw virtio-scsi-single \
   --net0 virtio,bridge=vmbr0,tag=67,firewall=0 \
