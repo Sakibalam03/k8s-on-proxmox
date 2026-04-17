@@ -553,4 +553,41 @@ Now requests to `http://nginx.lab.local` (with that hostname pointing to your HA
 
 ---
 
+## 11. Kubernetes Web UI Dashboard
+
+> **Note:** The official Kubernetes Dashboard is deprecated and unmaintained. Consider using [Headlamp](https://headlamp.dev/) as a modern alternative.
+
+### Install via Helm
+
+```bash
+helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard \
+  --create-namespace \
+  --namespace kubernetes-dashboard
+```
+
+Verify the pods are running:
+
+```bash
+kubectl get pods -n kubernetes-dashboard
+```
+
+### Access the Dashboard
+
+```bash
+kubectl -n kubernetes-dashboard port-forward svc/kubernetes-dashboard-kong-proxy 8443:443
+```
+
+Then open **https://localhost:8443** in your browser.
+
+> **Note:** This only works from the machine running the port-forward command. For remote access, you can forward through an SSH tunnel.
+
+### Create a Service Account Token
+
+Dashboard only supports Bearer Token authentication. Follow the [creating a sample user guide](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md) to generate a token.
+
+> **Warning:** Sample users created this way have full admin privileges — use for lab/testing purposes only.
+
+---
+
 You can build any services you like and do whatever you want — it is now a fully functional Kubernetes cluster.
