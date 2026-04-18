@@ -431,7 +431,7 @@ metadata:
   namespace: metallb-system
 spec:
   addresses:
-  - 10.69.67.240-10.69.67.245 # CHANGE THIS to your desired range
+  - 10.69.67.220-10.69.67.245 # CHANGE THIS to your desired range
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
