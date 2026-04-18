@@ -427,7 +427,7 @@ Create `proxmox-ip-pool.yaml` and paste the following. Remember to adjust the IP
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: marek-pool
+  name: rdp-labs-pool
   namespace: metallb-system
 spec:
   addresses:
@@ -440,7 +440,7 @@ metadata:
   namespace: metallb-system
 spec:
   ipAddressPools:
-  - marek-pool
+  - rdp-labs-pool
 ```
 
 Apply it:
