@@ -408,7 +408,7 @@ In `ipvs` you will see `strictARP` set to `false` — change it to `true`.
 Install MetalLB:
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.9/config/manifests/metallb-native.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.15.3/config/manifests/metallb-native.yaml
 ```
 
 Verify the pods are running (may take a moment):
