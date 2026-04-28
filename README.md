@@ -10,7 +10,7 @@ so any addresses from `10.69.67.100` to `10.69.67.254` can be assigned staticall
 
 ---
 
-## 1. Creating Virtual Machines(VM)
+## 1. Creating Virtual Machines (VM)
 
 We need to create 4 Linux Virtual Machines on Proxmox:
 
